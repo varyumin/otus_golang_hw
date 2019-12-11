@@ -1,4 +1,4 @@
-#HOW TO RUN
+# HOW TO RUN
 
 ```
 git clone git@github.com:varyumin/otus_golang_hw.git
@@ -8,7 +8,7 @@ go test
 go run main.go
 ```
 
-###OR
+### OR
 
 ```
 make run

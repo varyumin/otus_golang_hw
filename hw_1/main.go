@@ -7,7 +7,7 @@ import (
 	"time"
 )
 
-func errorWrapper(e error) {
+func errorWrapper(e error, message string) {
 	if e != nil {
 		log.Error(e)
 		os.Exit(1)
@@ -24,6 +24,6 @@ func GetNtpTime(host string) (time.Time, error) {
 
 func main() {
 	times, err := GetNtpTime("0.beevik-ntp.pool.ntp.org")
-	errorWrapper(err)
+	errorWrapper(err, "")
 	log.Info(times)
 }

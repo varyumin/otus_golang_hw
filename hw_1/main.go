@@ -9,7 +9,7 @@ import (
 
 func errorWrapper(e error, message string) {
 	if e != nil {
-		log.Error(e)
+		log.Errorf("Message %s. Error: %v", e, message)
 		os.Exit(1)
 	}
 }

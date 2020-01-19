@@ -21,4 +21,50 @@
 - Код должен проходить проверки go vet и golint
 - У преподавателя должна быть возможность скачать и проверить пакет с помощью go get / go test
 
-#HOW TO RUN
+# HOW TO
+## Arguments:
+```
+Usage of hw_2:
+  -line string
+    	primitive unboxing of a string containing duplicate characters/runes
+
+```
+
+## RUN
+```
+git clone git@github.com:varyumin/otus_golang_hw.git
+cd otus_golang_hw/hw_2/
+go mod vendor
+go test
+go run main.go -line={WRAPPER_LINE}
+```
+
+### OR
+
+```
+make run
+```
+
+## Example:
+```
+$LINE=g4 make run
+
+go: finding golang.org/x/lint latest
+go: finding golang.org/x/lint/golint latest
+go: finding golang.org/x/tools latest
+=== RUN   TestUnpack
+--- PASS: TestUnpack (0.00s)
+    main_test.go:26: "aaaabccddddde" == "aaaabccddddde"
+    main_test.go:26: "abcd" == "abcd"
+    main_test.go:26: "" == ""
+PASS
+ok      github.com/varyumin/otus_golang_hw/hw_2 (cached)
+
+gggg
+```
+### OR
+
+```
+$go run main.go -line=g4
+gggg
+```

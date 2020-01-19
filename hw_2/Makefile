@@ -1,4 +1,3 @@
-DEFAULT_GOAL := help
 LINE ?= ""
 
 .PHONY: run

@@ -10,19 +10,20 @@ import (
 	"strings"
 )
 
-var LineWrap string
+var lineWrap string
 
-func StringToInt(numberStr string) (int, error) {
+func stringToInt(numberStr string) (int, error) {
 	if numberStr == "" {
 		return 1, nil
-	} else {
-		number, err := strconv.ParseFloat(numberStr, 10)
-		if err != nil {
-			return 0, fmt.Errorf("Cannot convert int to string: %s", err)
-		}
-		return int(number), nil
 	}
+	number, err := strconv.ParseFloat(numberStr, 10)
+	if err != nil {
+		return 0, fmt.Errorf("Cannot convert int to string: %s", err)
+	}
+	return int(number), nil
 }
+
+//Unpack unboxing of a string containing duplicate characters/runes
 func Unpack(wrapped string) (string, error) {
 	if len(wrapped) == 0 {
 		return "", nil
@@ -34,7 +35,7 @@ func Unpack(wrapped string) (string, error) {
 	}
 	res := re.FindAllStringSubmatch(wrapped, -1)
 	for _, v := range res {
-		count, err := StringToInt(v[2])
+		count, err := stringToInt(v[2])
 		if err != nil {
 			return "", err
 		}
@@ -47,11 +48,11 @@ func Unpack(wrapped string) (string, error) {
 }
 
 func main() {
-	flag.StringVar(&LineWrap, "line", "", "primitive unboxing of a string containing duplicate characters/runes")
+	flag.StringVar(&lineWrap, "line", "", "primitive unboxing of a string containing duplicate characters/runes")
 	flagenv.Parse()
 	flag.Parse()
 
-	duplicate, err := Unpack(LineWrap)
+	duplicate, err := Unpack(lineWrap)
 	if err != nil {
 		log.Panic(err)
 	}

@@ -47,7 +47,7 @@ func Unpack(wrapped string) (string, error) {
 }
 
 func main() {
-	flag.StringVar(&LineWrap, "string", "", "primitive unboxing of a string containing duplicate characters/runes")
+	flag.StringVar(&LineWrap, "line", "", "primitive unboxing of a string containing duplicate characters/runes")
 	flagenv.Parse()
 	flag.Parse()
 

@@ -23,7 +23,7 @@ func TestUnpack(t *testing.T) {
 		if result != v.Resp {
 			t.Errorf("Invalid response %s != %s ", result, v.Resp)
 		} else {
-			t.Logf("%s == %s", result, v.Resp)
+			t.Logf("\"%s\" == \"%s\"", result, v.Resp)
 		}
 	}
 }

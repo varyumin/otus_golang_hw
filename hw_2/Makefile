@@ -1,4 +1,4 @@
-run: vendor vet test
+run: vendor vet golint test
 	@go run main.go
 
 test:

@@ -15,8 +15,10 @@ vendor:
 
 .PHONY: vet
 vet:
+    @go get -u golang.org/x/tools/cmd/vet
 	@go vet $(shell go list ./... | grep -v '/vendor/')
 
 .PHONY: golint
 golint:
+    @go get -u golang.org/x/lint/golint
 	@golint $(shell go list ./... | grep -v '/vendor/')

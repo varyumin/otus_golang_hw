@@ -10,3 +10,6 @@ vendor:
 
 vet:
 	@go vet $(shell go list ./... | grep -v '/vendor/')
+
+golint:
+    @golint $(shell go list ./... | grep -v '/vendor/')

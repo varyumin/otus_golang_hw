@@ -14,10 +14,6 @@ type Words struct {
 	Counter int
 }
 
-func (w *Words) String() string {
-	return fmt.Sprintf("\"%s: %d", w.Word, w.Counter)
-}
-
 type ByCounter []Words
 
 func (b ByCounter) TopN(n int) {

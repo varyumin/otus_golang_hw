@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"io/ioutil"
 	"sort"
@@ -104,6 +105,7 @@ func listToByCounter(dataSlice []string) ByCounter {
 	return words
 }
 func main() {
+	flag.Arg(5)
 	data, _ := openAndGet("voyna-i-mir-tom-1.txt")
 	dataSlice := dataToSliceString(data)
 	words := listToByCounter(dataSlice)

@@ -62,15 +62,29 @@ $FILE=voyna-i-mir-tom-1.txt make run
 go: finding golang.org/x/lint latest
 go: finding golang.org/x/lint/golint latest
 go: finding golang.org/x/tools latest
-=== RUN   TestUnpack
---- PASS: TestUnpack (0.00s)
-    main_test.go:26: "aaaabccddddde" == "aaaabccddddde"
-    main_test.go:26: "abcd" == "abcd"
-    main_test.go:26: "" == ""
+=== RUN   TestDataToSliceString
+--- PASS: TestDataToSliceString (0.00s)
+    main_test.go:17: true
+=== RUN   TestListToByCounter
+--- PASS: TestListToByCounter (0.00s)
+    main_test.go:33: true
+=== RUN   TestSortWords
+--- PASS: TestSortWords (0.00s)
+    main_test.go:55: true
 PASS
-ok      github.com/varyumin/otus_golang_hw/hw_2 (cached)
+ok      github.com/varyumin/otus_golang_hw/hw_3 (cached)
 
-gggg
+1 place is taken by the word: 'и' occurs 4917 times
+2 place is taken by the word: 'в' occurs 2350 times
+3 place is taken by the word: 'не' occurs 1971 times
+4 place is taken by the word: 'он' occurs 1804 times
+5 place is taken by the word: 'что' occurs 1630 times
+6 place is taken by the word: 'на' occurs 1607 times
+7 place is taken by the word: 'с' occurs 1379 times
+8 place is taken by the word: 'как' occurs 1072 times
+9 place is taken by the word: 'к' occurs 870 times
+10 place is taken by the word: 'я' occurs 853 times
+
 ```
 ### OR
 

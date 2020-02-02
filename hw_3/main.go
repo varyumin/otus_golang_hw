@@ -4,11 +4,17 @@ import (
 	"flag"
 	"fmt"
 	"io/ioutil"
+	"log"
 	"sort"
 	"strings"
 )
 
-var filterChats = []string{",", ".", "...", "-", "—", "?", "!", "\"", "(", ")", "[", "]", ":", ";", "«", "'", "*", "»"}
+var (
+	filterChats = []string{",", ".", "...", "-", "—", "?", "!", "\"", "(", ")", "[", "]", ":", ";", "«", "'", "*", "»"}
+	file        = flag.String("file", "", "Path to text file")
+	line        = flag.String("line", "", "String with values")
+	topN        = flag.Int("top", 10, "Number of top")
+)
 
 type Words struct {
 	Word    string
@@ -17,9 +23,17 @@ type Words struct {
 
 type ByCounter []Words
 
-func (b ByCounter) TopN(n int) {
+func TopN(n int, b []Words) []Words {
+	var c []Words
 	for i := 0; i < n; i++ {
-		fmt.Printf("%v place is taken by the word: '%v' occurs %v times\n", i+1, b[i].Word, b[i].Counter)
+		c = append(c, b[i])
+	}
+	return c
+}
+
+func printTop(b []Words) {
+	for k, v := range b {
+		fmt.Printf("%v place is taken by the word: '%v' occurs %v times\n", k+1, v.Word, v.Counter)
 	}
 }
 
@@ -61,21 +75,23 @@ func toLowerText(data string) string {
 	return strings.ToLower(data)
 }
 
-func openAndGet(filepath string) (string, error) {
+func fileToString(filepath string) (string, error) {
 	dataByte, err := ioutil.ReadFile(filepath)
 	if err != nil {
 		return "", err
 	}
-	data := string(dataByte)
+	return string(dataByte), nil
+}
+func applyFilter(data string) string {
 	data = removeFilterCharts(data)
 	data = removeLineBreak(data)
 	data = removeTab(data)
 	data = toLowerText(data)
 	data = removeTooManySpace(data)
-	return data, nil
+	return data
 }
 
-func dataToSliceString(data string) []string {
+func DataToSliceString(data string) []string {
 	dataList := strings.Split(data, " ")
 	for k, v := range dataList {
 		if len(v) == 0 {
@@ -89,7 +105,7 @@ func removeIndex(s []string, index int) []string {
 	return append(s[:index], s[index+1:]...)
 }
 
-func listToByCounter(dataSlice []string) ByCounter {
+func ListToByCounter(dataSlice []string) ByCounter {
 	var words ByCounter
 	m := make(map[string]int)
 	for _, v := range dataSlice {
@@ -104,11 +120,30 @@ func listToByCounter(dataSlice []string) ByCounter {
 	}
 	return words
 }
+func SortWords(b ByCounter) ByCounter {
+	sort.Sort(ByCounter(b))
+	return b
+}
+
 func main() {
-	flag.Arg(5)
-	data, _ := openAndGet("voyna-i-mir-tom-1.txt")
-	dataSlice := dataToSliceString(data)
-	words := listToByCounter(dataSlice)
-	sort.Sort(ByCounter(words))
-	words.TopN(100)
+	flag.Parse()
+	var data string
+	var err error
+
+	if *file != "" {
+		data, err = fileToString(*file)
+		if err != nil {
+			log.Panic(err)
+		}
+	} else {
+		if *line == "" {
+			log.Panic("Empty line")
+		}
+		data = *line
+	}
+
+	dataFiltered := applyFilter(data)
+	dataSlice := DataToSliceString(dataFiltered)
+	words := ListToByCounter(dataSlice)
+	printTop(TopN(*topN, SortWords(words)))
 }
